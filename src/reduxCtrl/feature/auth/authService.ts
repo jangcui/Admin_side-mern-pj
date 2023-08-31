@@ -29,6 +29,20 @@ export const logout = createAsyncThunk('logout', async (__, thunkAPI) => {
         if (response.status < 200 || response.status >= 300) {
             return thunkAPI.rejectWithValue(result);
         }
+        return result;
+    } catch (error: any) {
+        return thunkAPI.rejectWithValue(error.response.data);
+    }
+});
+
+export const refreshToken = createAsyncThunk('refreshToken', async (__, thunkAPI) => {
+    try {
+        const response: Response = await request.get(`/admin/refresh`);
+        const result = await response.json();
+
+        if (response.status < 200 || response.status >= 300) {
+            return thunkAPI.rejectWithValue(result);
+        }
 
         return result;
     } catch (error: any) {

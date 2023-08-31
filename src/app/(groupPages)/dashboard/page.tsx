@@ -3,7 +3,7 @@
 import { AppDispatch, RootState } from '~/reduxCtrl/store';
 import { Column } from '@ant-design/plots';
 import ForwardTable from 'antd/lib/table/Table';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMonthlyIncome, getYearlyIncome } from '~/reduxCtrl/feature/incomeStage/incomeService';
 import { getAllOrders } from '~/reduxCtrl/feature/orderStage/orderService';
@@ -105,7 +105,7 @@ function Dashboard() {
     }, [monthlyIncome, orderList]);
 
     const configMonthlyAmount = {
-        data: dataMonthlyAmount,
+        data: dataMonthlyAmount.length > 0 && dataMonthlyAmount,
         xField: 'type',
         yField: 'income',
         color: () => {
@@ -127,7 +127,7 @@ function Dashboard() {
         },
     };
     const configMonthlyCount = {
-        data: dataMonthlyCount,
+        data: dataMonthlyCount.length > 0 && dataMonthlyCount,
         xField: 'type',
         yField: 'sales',
         color: () => {

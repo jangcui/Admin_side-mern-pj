@@ -1,14 +1,9 @@
 'use client';
-// const base_url = 'https://jangcui-backend-project.onrender.com/api';
-const baseUrl = process.env.BASE_URL;
 
-const refreshToken = async () => {
-    const response: any = await get('/admin/refresh');
-    if (response) {
-        localStorage.setItem('token', response.token);
-    }
-    return response.token;
-};
+const baseUrl = process.env.BASE_URL;
+// const baseUrl = 'http://localhost:4000/api';
+import { refreshToken } from '../feature/auth/authService';
+import { store } from '../store';
 
 export const getToken = () => {
     const token = localStorage.getItem('TOKEN') || null;
@@ -29,9 +24,10 @@ const request = async (path: string, method: string, data: any, token?: string) 
         credentials: 'include',
         body: data ? JSON.stringify(data) : undefined,
     };
+
     const response = await fetch(`${baseUrl}${path}`, options);
     if (response.status === 401 && token) {
-        const newToken = await refreshToken();
+        const newToken = await store.dispatch(refreshToken());
         if (newToken) {
             headers.set('Authorization', `Bearer ${newToken}`);
             const refreshedOptions: RequestInit = { ...options, headers };

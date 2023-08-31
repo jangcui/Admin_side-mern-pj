@@ -13,7 +13,15 @@ interface MyModalProps extends Omit<ModalProps, 'visible'> {
 function ModalCustom(props: MyModalProps) {
     const { open, onOk, onCancel, title = 'Confirm?' } = props;
     return (
-        <Modal title={title} open={open} onOk={onOk} onCancel={onCancel} okText="Confirm" cancelText="Cancel">
+        <Modal
+            title={title}
+            open={open}
+            onOk={onOk}
+            onCancel={onCancel}
+            okText="Agree"
+            cancelText="Cancel"
+            okButtonProps={{ className: 'bg-primary' }}
+        >
             <p> {title}</p>
         </Modal>
     );

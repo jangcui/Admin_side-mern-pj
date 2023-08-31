@@ -1,15 +1,13 @@
 'use client';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
-import { AiFillDelete } from 'react-icons/ai';
 import ForwardTable from 'antd/lib/table/Table';
+import { useEffect, useState } from 'react';
+import { AiFillDelete } from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
 
 import ModalCustom from '~/components/ModalCustom';
-import { AppDispatch, RootState } from '~/reduxCtrl/store';
-import { BiEdit } from 'react-icons/bi';
 import { getAllUsers, toggleCustomerToTrashBin } from '~/reduxCtrl/feature/customerStage/customerService';
+import { AppDispatch, RootState } from '~/reduxCtrl/store';
 
 interface DataType {
     key: React.Key;

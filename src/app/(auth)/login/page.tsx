@@ -2,7 +2,6 @@
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useEffect } from 'react';
 
 import InputCustom from '~/components/InputCustom';
 import { login } from 'src/reduxCtrl/feature/auth/authService';

@@ -7,8 +7,16 @@ import { RootState } from '~/reduxCtrl/store';
 
 function LayoutPage({ children }: { children: React.ReactNode }) {
     const { isLogin } = useSelector((state: RootState) => state.auth);
-    console.log(isLogin);
-    return <DefaultLayout>{isLogin ? children : redirect('/login')}</DefaultLayout>;
+
+    const renderContent = () => {
+        if (isLogin) {
+            return <DefaultLayout>{children}</DefaultLayout>;
+        } else {
+            redirect('/login');
+        }
+    };
+
+    return renderContent();
 }
 
 export default LayoutPage;

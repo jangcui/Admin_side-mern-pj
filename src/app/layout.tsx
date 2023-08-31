@@ -4,11 +4,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import ReduxProvider from 'src/reduxCtrl/provider';
 import ToastProvider from './toastNotify';
 import { Metadata } from 'next';
-export const metadata: Metadata = {
-    title: {
-        absolute: 'About',
-    },
-};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (

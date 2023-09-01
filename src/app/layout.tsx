@@ -1,8 +1,9 @@
 'use client';
+
 import './global.scss';
 import 'react-toastify/dist/ReactToastify.css';
-import ReduxProvider from 'src/reduxCtrl/provider';
 import ToastProvider from './toastNotify';
+import ReduxProvider from '~/reduxCtrl/provider';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (

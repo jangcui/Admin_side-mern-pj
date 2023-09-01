@@ -178,7 +178,7 @@ const menuItems = [
 
 const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
     const dispatch = useDispatch<AppDispatch>();
-    const { admin, isLogin } = useSelector((state: RootState) => state.auth);
+    const { admin } = useSelector((state: RootState) => state.auth);
     const [collapsed, setCollapsed] = useState(false);
     const [openModal, setOpenModal] = useState(false);
     const navigate = useRouter();

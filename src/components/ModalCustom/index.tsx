@@ -1,8 +1,8 @@
 'use client';
 
+import React from 'react';
 import { Modal } from 'antd';
 import { ModalProps } from 'antd/lib/modal';
-import React from 'react';
 
 interface MyModalProps extends Omit<ModalProps, 'visible'> {
     open: boolean;

@@ -14,7 +14,6 @@ import discountReducer from './feature/discountStage/discountLice';
 import couponReducer from './feature/couponStage/couponSlice';
 import trashReducer from './feature/trashStage/trashSlice';
 import enquiryReducer from './feature/enquiryStage/enquirySlice';
-import modalReducer from './feature/modal/modalSlice';
 
 export const store: any = configureStore({
     reducer: {
@@ -33,7 +32,6 @@ export const store: any = configureStore({
         couponData: couponReducer,
         trashBinData: trashReducer,
         enquiryData: enquiryReducer,
-        modalHandle: modalReducer,
     },
 });
 export type RootState = ReturnType<typeof store.getState>;

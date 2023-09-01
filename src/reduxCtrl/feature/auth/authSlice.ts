@@ -2,7 +2,6 @@
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-
 import { AuthType } from '../type';
 import { checkCurrentAdmin, login, logout, refreshToken } from './authService';
 

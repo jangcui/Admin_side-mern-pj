@@ -7,6 +7,7 @@ import ForwardTable from 'antd/lib/table/Table';
 
 import { AppDispatch, RootState } from '~/reduxCtrl/store';
 import { getAOrder } from '~/reduxCtrl/feature/orderStage/orderService';
+import { OrderItemType } from '~/reduxCtrl/feature/type';
 
 interface DataType {
     name: string;
@@ -63,7 +64,7 @@ function OrderPage() {
         name: order?.user.first_name + ' ' + order?.user.last_name,
         product: (
             <div className="flex flex-col gap-6">
-                {order?.orderItems.map((item, index) => (
+                {order?.orderItems.map((item: OrderItemType, index: number) => (
                     <div key={index}>
                         <p style={{ fontWeight: '600' }}>{item.productId.title} </p>
                         <div className="flex gap-5 items-center mt-4">

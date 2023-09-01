@@ -19,7 +19,6 @@ export const getAProduct = createAsyncThunk('product/get', async (slug: string, 
         if (response.status < 200 || response.status >= 300) {
             return thunkAPI.rejectWithValue(result);
         }
-
         return result;
     } catch (error: any) {
         return thunkAPI.rejectWithValue(error.response.data);

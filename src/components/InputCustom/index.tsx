@@ -50,7 +50,6 @@ function InputCustom<T>(props: InputProps<T>) {
                         defaultValue={defaultValue as unknown as string}
                         onChange={handleChange}
                         placeholder={placeholder}
-                        // className={cx('input', className)}
                         onBlur={onBlur}
                         disabled={disabled}
                         min={min}

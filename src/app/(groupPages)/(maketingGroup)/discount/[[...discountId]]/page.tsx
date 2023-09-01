@@ -3,10 +3,10 @@
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
+import { useParams, useRouter } from 'next/navigation';
 
 import { useEffect } from 'react';
 import { AppDispatch, RootState } from '~/reduxCtrl/store';
-import { useParams, useRouter } from 'next/navigation';
 import { createDiscount, getDiscount, updateADiscount } from '~/reduxCtrl/feature/discountStage/discountService';
 import { resetDiscountState } from '~/reduxCtrl/feature/discountStage/discountLice';
 import InputCustom from '~/components/InputCustom';

@@ -1,12 +1,13 @@
 'use client';
-import { redirect } from 'next/navigation';
 
+import { redirect } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '~/reduxCtrl/store';
 import DefaultLayout from './defaultLayout';
 import { useEffect, useState } from 'react';
+
 import { checkCurrentAdmin } from '~/reduxCtrl/feature/auth/authService';
 import Loading from '~/components/Loading';
+import { AppDispatch, RootState } from '~/reduxCtrl/store';
 
 function LayoutPage({ children }: { children: React.ReactNode }) {
     const { isLogin } = useSelector((state: RootState) => state.auth);
@@ -30,19 +31,7 @@ function LayoutPage({ children }: { children: React.ReactNode }) {
         }
     }, [isCheckingLogin, isLogin]);
 
-    return (
-        <>
-            {isLogin ? (
-                <>
-                    <DefaultLayout>{children}</DefaultLayout>
-                </>
-            ) : (
-                <>
-                    <Loading />
-                </>
-            )}
-        </>
-    );
+    return <>{isLogin ? <DefaultLayout>{children}</DefaultLayout> : <Loading />}</>;
 }
 
 export default LayoutPage;

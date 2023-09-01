@@ -4,13 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import ForwardTable from 'antd/lib/table/Table';
-import { toast } from 'react-toastify';
 import { BiEdit } from 'react-icons/bi';
+import { useRouter } from 'next/navigation';
 
 import ModalCustom from '~/components/ModalCustom';
 import { AppDispatch, RootState } from '~/reduxCtrl/store';
 import { deleteDiscount, getAllDiscounts } from '~/reduxCtrl/feature/discountStage/discountService';
-import { useRouter } from 'next/navigation';
 
 interface DataType {
     key: React.Key;

@@ -1,6 +1,5 @@
 'use client';
 
-import { toast } from 'react-toastify';
 import ForwardTable from 'antd/lib/table/Table';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';

@@ -6,19 +6,19 @@ import 'react-quill/dist/quill.snow.css';
 import Dropzone from 'react-dropzone';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import Image from 'next/image';
-
-import InputCustom from '~/components/InputCustom';
 import { AiOutlineClose, AiOutlineFileImage } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '~/reduxCtrl/store';
-import { ImgType, OptionType } from '~/reduxCtrl/feature/type';
 import { useParams, useRouter } from 'next/navigation';
+import Image from 'next/image';
+import images from 'public/asset/images';
+
+import InputCustom from '~/components/InputCustom';
+import { AppDispatch, RootState } from '~/reduxCtrl/store';
+import { BlogType, ImgType, OptionType } from '~/reduxCtrl/feature/type';
 import { resetBlogState } from '~/reduxCtrl/feature/blogState/blogSlice';
 import { uploadImages } from '~/reduxCtrl/feature/uploadImg/uploadImgService';
 import { createBlog, getBlog, updateABlog } from '~/reduxCtrl/feature/blogState/blogService';
 import { getAllBlogCates } from '~/reduxCtrl/feature/blogCateStage/blogCateService';
-import images from 'public/asset/images';
 
 const blogSchema = Yup.object().shape({
     title: Yup.string().required('Title is required'),
@@ -31,9 +31,8 @@ function CreateBlog() {
     const dispatch = useDispatch<AppDispatch>();
 
     const blogCateState = useSelector((state: RootState) => state.blogCateData.blogCateList);
-    const blogState = useSelector((state: RootState) => state.blogData);
+    const { isLoading, blog } = useSelector((state: RootState) => state.blogData);
     const uploadState = useSelector((state: RootState) => state.uploadImg);
-    const { isLoading, blog } = blogState;
 
     const [imgConvert, setImgConvert] = useState<string[]>([]);
     const [imgUrl, setImgUrl] = useState<ImgType[]>([]);
@@ -76,9 +75,9 @@ function CreateBlog() {
             images: blog?.images ? blog.images : [],
         },
         validationSchema: blogSchema,
-        onSubmit: async (values) => {
+        onSubmit: async (values: Omit<BlogType, '_id' | 'numView' | 'like' | 'author' | 'dislike'>) => {
             if (files && files.length > 0) {
-                const response: Response = await dispatch(uploadImages(files));
+                const response = await dispatch(uploadImages(files));
                 const imgValue = await response.payload;
                 formik.values.images = [...imgUrl, ...imgValue.map((item: ImgType) => item)];
                 setImgUrl([...imgUrl, ...imgValue.map((item: ImgType) => item)]);

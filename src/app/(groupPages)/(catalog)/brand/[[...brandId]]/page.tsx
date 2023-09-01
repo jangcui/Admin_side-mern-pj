@@ -3,10 +3,10 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useEffect } from 'react';
-
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '~/reduxCtrl/store';
 import { useParams, useRouter } from 'next/navigation';
+
+import { AppDispatch, RootState } from '~/reduxCtrl/store';
 import { createBrand, getBrand, updateABrand } from '~/reduxCtrl/feature/brandStage/brandService';
 import { resetBrandState } from '~/reduxCtrl/feature/brandStage/brandSlice';
 import InputCustom from '~/components/InputCustom';

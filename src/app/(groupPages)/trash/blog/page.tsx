@@ -9,7 +9,6 @@ import { BsArrowReturnLeft } from 'react-icons/bs';
 
 import ModalCustom from '~/components/ModalCustom';
 import { AppDispatch, RootState } from '~/reduxCtrl/store';
-import { deleteUser } from '~/reduxCtrl/feature/customerStage/customerService';
 import { getBlogsTrash } from '~/reduxCtrl/feature/trashStage/trashServer';
 import { deleteBlog, toggleBlogToTrashBin } from '~/reduxCtrl/feature/blogState/blogService';
 

@@ -1,14 +1,14 @@
 'use client';
 
-import { toast } from 'react-toastify';
 import { AiFillEye, AiFillDelete } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import ForwardTable from 'antd/lib/table/Table';
+import { useRouter } from 'next/navigation';
+
 import { AppDispatch, RootState } from '~/reduxCtrl/store';
 import ModalCustom from '~/components/ModalCustom';
 import { deleteEnquiry, getAllEnquiries, updateStatusEnquiry } from '~/reduxCtrl/feature/enquiryStage/enquiryServer';
-import { useRouter } from 'next/navigation';
 
 interface DataType {
     key: React.Key;

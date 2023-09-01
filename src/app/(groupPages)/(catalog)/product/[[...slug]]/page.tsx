@@ -89,7 +89,7 @@ function Product() {
     }, [product]);
 
     const colorOpt: SelectProps['options'] = [];
-    colorState?.forEach((color) => {
+    colorState?.forEach((color: OptionType) => {
         colorOpt.push({
             label: color?.title,
             value: color?.id,

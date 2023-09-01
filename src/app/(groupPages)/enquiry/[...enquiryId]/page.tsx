@@ -1,13 +1,12 @@
 'use client';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { useEffect } from 'react';
 import { IoMdArrowBack } from 'react-icons/io';
-import { AppDispatch, RootState } from '~/reduxCtrl/store';
 import { useParams, useRouter } from 'next/navigation';
 
 import { getAnEnquiry, updateStatusEnquiry } from '~/reduxCtrl/feature/enquiryStage/enquiryServer';
 import { resetEnquiryState } from '~/reduxCtrl/feature/enquiryStage/enquirySlice';
+import { AppDispatch, RootState } from '~/reduxCtrl/store';
 
 function Enquiry() {
     const dispatch = useDispatch<AppDispatch>();

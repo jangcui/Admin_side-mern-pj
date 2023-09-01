@@ -14,7 +14,7 @@ const orderInit = {
     },
     orderItems: [],
     user: {
-        fist_name: '',
+        first_name: '',
         last_name: '',
         mobile: 0,
         email: '',
@@ -56,7 +56,7 @@ export const orderList = createSlice({
                         const filterData = {
                             id: data._id,
                             user: {
-                                fist_name: data.user.fist_name,
+                                first_name: data.user.first_name,
                                 last_name: data.user.last_name,
                             },
                             dPrice: data.total_price_after_discount,
@@ -109,7 +109,7 @@ export const orderList = createSlice({
                         },
                         orderItems: orderItems,
                         user: {
-                            fist_name: user?.fist_name,
+                            first_name: user?.first_name,
                             last_name: user?.last_name,
                             mobile: user?.mobile,
                             email: user?.email,

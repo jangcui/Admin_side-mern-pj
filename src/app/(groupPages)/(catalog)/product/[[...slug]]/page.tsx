@@ -132,7 +132,6 @@ function Product() {
             }
             if (slug !== undefined) {
                 const productUpdate = await dispatch(updateAProduct({ id: product._id || '', body: values }));
-                console.log('productUpdate create:::', productUpdate);
 
                 if (productUpdate) {
                     navigate.push('/product-list');
@@ -141,7 +140,6 @@ function Product() {
             }
             if (slug === undefined) {
                 const result = await dispatch(createProduct(values));
-                console.log('result create::: requestStatus', result);
                 if (result.meta.requestStatus === 'fulfilled') {
                     setColor([]);
                     setFiles([]);
@@ -300,7 +298,6 @@ function Product() {
                                     type="button"
                                     className="absolute top-1 right-1 z-10"
                                     onClick={() => {
-                                        console.log(index);
                                         setFiles((prev) => {
                                             const newFiles = [...prev];
                                             newFiles.splice(index, 1);

@@ -78,7 +78,6 @@ function ProductList() {
 
     const showModal = (value: string) => {
         setOpen(true);
-        console.log(productId);
         if (value) {
             setProductId(value);
         }
@@ -95,7 +94,6 @@ function ProductList() {
     };
 
     const handleDiscount = async (e: string, nameProduct: string) => {
-        console.log(e);
         if (e === 'remove') {
             await dispatch(removeDiscount(nameProduct));
             await dispatch(getAllProducts());

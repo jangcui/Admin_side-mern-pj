@@ -2,7 +2,7 @@
 
 import { Layout, Menu } from 'antd';
 import { usePathname, useRouter } from 'next/navigation';
-import React, { ReactNode, useState } from 'react';
+import React, { useState } from 'react';
 import {
     AiOutlineBgColors,
     AiOutlineDashboard,
@@ -24,10 +24,6 @@ import { logout } from '~/reduxCtrl/feature/auth/authService';
 import { AppDispatch, RootState } from '~/reduxCtrl/store';
 
 const { Header, Sider, Content } = Layout;
-
-type Props = {
-    children: ReactNode;
-};
 
 const menuItems = [
     {
@@ -180,10 +176,9 @@ const menuItems = [
     },
 ];
 
-const LayoutCustom: React.FC<Props> = ({ children }) => {
+const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
     const dispatch = useDispatch<AppDispatch>();
-    const { admin } = useSelector((state: RootState) => state.auth);
-
+    const { admin, isLogin } = useSelector((state: RootState) => state.auth);
     const [collapsed, setCollapsed] = useState(false);
     const [openModal, setOpenModal] = useState(false);
     const navigate = useRouter();
@@ -197,7 +192,7 @@ const LayoutCustom: React.FC<Props> = ({ children }) => {
             <Layout className="bg-gray">
                 <Sider trigger={null} collapsible collapsed={collapsed} className="">
                     <div className="h-[64px] flex justify-center items-center bg-gray rounded">
-                        <h2 className="text-center font-bold text-3xl text-primary">Admin</h2>{' '}
+                        <h2 className="text-center font-bold text-3xl text-primary">Panel</h2>{' '}
                         <ModalCustom
                             title={'Log Out'}
                             open={openModal}
@@ -241,7 +236,7 @@ const LayoutCustom: React.FC<Props> = ({ children }) => {
                             </a>
                             <div className="text-2xl">
                                 <p className="font-bold text-orange">
-                                    {admin && `${admin.fist_name} ${admin.last_name}`}
+                                    {admin && `${admin.first_name} ${admin.last_name}`}
                                 </p>
                                 <a href="mailto:tungphan12h@gmail.com">{admin && admin.email}</a>
                             </div>
@@ -254,4 +249,4 @@ const LayoutCustom: React.FC<Props> = ({ children }) => {
     );
 };
 
-export default LayoutCustom;
+export default DefaultLayout;

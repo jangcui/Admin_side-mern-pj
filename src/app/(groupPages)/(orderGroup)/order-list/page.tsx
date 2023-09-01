@@ -68,7 +68,7 @@ function OrderList() {
     for (let i = 0; i < orderList?.length; i++) {
         data1.push({
             key: i + 1,
-            name: orderList[i].user.fist_name + ' ' + orderList[i].user.last_name || '',
+            name: orderList[i].user.first_name + ' ' + orderList[i].user.last_name || '',
             detail: (
                 <>
                     <button onClick={() => navigate.push(`order/${orderList[i]?.id}`)}>

@@ -60,7 +60,6 @@ function BrandList() {
         hideModal();
         await dispatch(getAllBrands());
     };
-    console.log(brandState);
     const data1: DataType[] = [];
     for (let i = 0; i < brandState.length; i++) {
         data1.push({

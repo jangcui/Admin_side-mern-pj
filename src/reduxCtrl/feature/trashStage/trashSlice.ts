@@ -1,6 +1,7 @@
 import { PayloadAction, createAction, createSlice } from '@reduxjs/toolkit';
-import { getBlogsTrash, getCustomersTrash, getProductTrash } from './trashServer';
+import { clearCustomersTrash, getBlogsTrash, getCustomersTrash, getProductTrash } from './trashServer';
 import { TrashBlogType, TrashCustomerType, TrashProductType } from '../type';
+import { toast } from 'react-toastify';
 
 type InitialState = {
     productTrash: TrashProductType[];
@@ -68,7 +69,7 @@ export const trashSlice = createSlice({
                     const result = action?.payload?.map((data: any) => {
                         const filterData = {
                             _id: data?._id,
-                            fist_name: data?.fist_name,
+                            first_name: data?.first_name,
                             last_name: data?.last_name,
                             address: data?.address,
                             mobile: data?.mobile,
@@ -83,6 +84,21 @@ export const trashSlice = createSlice({
                 state.isError = true;
                 state.isSuccess = false;
                 state.isLoading = false;
+            })
+            .addCase(clearCustomersTrash.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(clearCustomersTrash.fulfilled, (state) => {
+                state.isError = false;
+                state.isLoading = false;
+                state.isSuccess = true;
+                toast.error('Cleaned the customer trash!');
+            })
+            .addCase(clearCustomersTrash.rejected, (state) => {
+                state.isError = true;
+                state.isSuccess = false;
+                state.isLoading = false;
+                toast.error('Some thing went wrong!');
             })
             .addCase(getBlogsTrash.pending, (state) => {
                 state.isLoading = true;

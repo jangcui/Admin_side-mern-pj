@@ -3,10 +3,11 @@
 import { AppDispatch, RootState } from '~/reduxCtrl/store';
 import { Column } from '@ant-design/plots';
 import ForwardTable from 'antd/lib/table/Table';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMonthlyIncome, getYearlyIncome } from '~/reduxCtrl/feature/incomeStage/incomeService';
 import { getAllOrders } from '~/reduxCtrl/feature/orderStage/orderService';
+import { checkCurrentAdmin, refreshToken } from '~/reduxCtrl/feature/auth/authService';
 
 interface DataType {
     key: React.Key;
@@ -83,29 +84,19 @@ function Dashboard() {
                 type: monthNames[el?._id?.month],
                 income: el?.amount,
             });
+
             monthlyOrderCounts.push({
                 type: monthNames[el?._id?.month],
                 sales: el?.count,
             });
         }
 
-        const data1: DataType[] = [];
-        for (let i = 0; i < orderList?.length; i++) {
-            data1.push({
-                key: i,
-                name: orderList[i].user.fist_name + ' ' + orderList[i].user.last_name || '',
-                product: orderList[i]?.orderItems?.length,
-                dPrice: orderList[i]?.dPrice,
-                status: orderList[i]?.status,
-            });
-        }
-        setDataOrders(data1);
         setDateMonthlyCount(monthlyOrderCounts);
         setDateMonthlyAmount(data);
-    }, [monthlyIncome, orderList]);
+    }, [monthlyIncome]);
 
     const configMonthlyAmount = {
-        data: dataMonthlyAmount.length > 0 && dataMonthlyAmount,
+        data: dataMonthlyAmount,
         xField: 'type',
         yField: 'income',
         color: () => {
@@ -127,7 +118,7 @@ function Dashboard() {
         },
     };
     const configMonthlyCount = {
-        data: dataMonthlyCount.length > 0 && dataMonthlyCount,
+        data: dataMonthlyCount,
         xField: 'type',
         yField: 'sales',
         color: () => {
@@ -148,9 +139,24 @@ function Dashboard() {
             },
         },
     };
+
+    useEffect(() => {
+        const newData1 = [];
+        for (let i = 0; i < orderList?.length; i++) {
+            newData1.push({
+                key: i,
+                name: orderList[i].user.first_name + ' ' + orderList[i].user.last_name || '',
+                product: orderList[i]?.orderItems?.length,
+                dPrice: orderList[i]?.dPrice,
+                status: orderList[i]?.status,
+            });
+        }
+        setDataOrders(newData1);
+    }, [orderList]);
+
     return (
         <div className="pt-6 pl-4 ">
-            <h1 className="title"> Dashboard</h1>
+            <h1 className="title">Dashboard</h1>
             <div className="block lg:flex justify-between my-5 gap-3">
                 <div className="mb-6 lg:mb-0 px-6 py-4 bg-white rounded flex-1 ">
                     <p className="text-2xl font-semibold">Total Income:</p>

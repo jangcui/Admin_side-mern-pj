@@ -35,7 +35,7 @@ export const income = createSlice({
                     const result = action?.payload?.map((data: any) => {
                         const filterData = {
                             id: data._id,
-                            fist_name: data.fist_name,
+                            first_name: data.first_name,
                             last_name: data.last_name,
                             email: data.email,
                             mobile: data.mobile,

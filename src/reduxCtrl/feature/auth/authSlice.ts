@@ -1,9 +1,10 @@
 'use client';
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AuthType } from '../type';
 import { toast } from 'react-toastify';
-import { login, logout, refreshToken } from './authService';
+
+import { AuthType } from '../type';
+import { checkCurrentAdmin, login, logout, refreshToken } from './authService';
 
 export type InitialState = {
     isLoading: boolean;
@@ -14,17 +15,9 @@ export type InitialState = {
     message: string;
 };
 
-export const getAdminInfo = () => {
-    const adminJSON = localStorage.getItem('ADMIN');
-    return adminJSON ? JSON.parse(adminJSON) : null;
-};
-const handleLogout = () => {
-    localStorage.removeItem('TOKEN');
-    localStorage.removeItem('ADMIN');
-};
 const initialState: InitialState = {
-    admin: getAdminInfo(),
-    isLogin: getAdminInfo() != null ? true : false,
+    admin: { _id: '', first_name: '', last_name: '', email: '', mobile: '' },
+    isLogin: false,
     isLoading: false,
     isError: false,
     isSuccess: false,
@@ -41,18 +34,17 @@ export const auth = createSlice({
                 state.isLoading = true;
             })
             .addCase(login.fulfilled, (state, action: PayloadAction<any>) => {
-                state.isError = false;
-                state.isLoading = false;
-                state.isSuccess = true;
-                state.isLogin = true;
+                if (action.payload) {
+                    state.isError = false;
+                    state.isLoading = false;
+                    state.isSuccess = true;
 
-                if (action.payload !== null) {
                     const { token, ...data } = action.payload;
                     state.admin = data;
-                    localStorage.setItem('TOKEN', token);
-                    localStorage.setItem('ADMIN', JSON.stringify(data));
+                    state.isLogin = true;
+                    localStorage.setItem('TOKEN', action.payload.token);
+                    toast.success('Logged In.');
                 }
-                toast.success('Logged In.');
             })
             .addCase(login.rejected, (state, action: PayloadAction<any>) => {
                 state.isError = true;
@@ -61,6 +53,26 @@ export const auth = createSlice({
                 state.isSuccess = false;
                 state.message = action.payload.message;
                 toast.error(action.payload.message);
+            })
+            .addCase(checkCurrentAdmin.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(checkCurrentAdmin.fulfilled, (state, action: PayloadAction<any>) => {
+                if (action.payload) {
+                    state.isError = false;
+                    state.isLoading = false;
+                    state.isSuccess = true;
+                    state.isLogin = true;
+                    state.admin = action.payload.admin;
+                    // localStorage.setItem('TOKEN', action.payload.token);
+                }
+            })
+            .addCase(checkCurrentAdmin.rejected, (state) => {
+                state.isError = true;
+                state.isSuccess = false;
+                state.isLoading = false;
+                state.isSuccess = false;
+                state.isLogin = false;
             })
             .addCase(logout.pending, (state) => {
                 state.isLoading = true;
@@ -71,7 +83,6 @@ export const auth = createSlice({
                 state.isSuccess = true;
                 state.isLogin = false;
                 toast.info('Logged Out!');
-                handleLogout();
             })
             .addCase(logout.rejected, (state, action: PayloadAction<any>) => {
                 state.isError = true;
@@ -85,11 +96,13 @@ export const auth = createSlice({
                 state.isLoading = true;
             })
             .addCase(refreshToken.fulfilled, (state, action: PayloadAction<any>) => {
-                state.isError = false;
-                state.isLoading = false;
-                state.isSuccess = true;
-                state.isLogin = false;
-                localStorage.setItem('TOKEN', action.payload.token);
+                if (action.payload) {
+                    state.isError = false;
+                    state.isLoading = false;
+                    state.isSuccess = true;
+                    const { token } = action.payload;
+                    localStorage.setItem('TOKEN', token);
+                }
             })
             .addCase(refreshToken.rejected, (state, action: PayloadAction<any>) => {
                 state.isError = true;
@@ -98,7 +111,6 @@ export const auth = createSlice({
                 state.isSuccess = false;
                 state.message = action.payload.message;
                 toast.info('Login session has expired, please log in again.');
-                handleLogout();
             });
     },
 });

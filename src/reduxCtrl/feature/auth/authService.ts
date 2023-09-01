@@ -21,6 +21,21 @@ export const login = createAsyncThunk('login', async (data: LoginType, thunkAPI)
     }
 });
 
+export const checkCurrentAdmin = createAsyncThunk('check_is_login', async (__, thunkAPI) => {
+    try {
+        const response: Response = await request.get(`/admin/login`);
+        const result = await response.json();
+
+        if (response.status < 200 || response.status >= 300) {
+            return thunkAPI.rejectWithValue(result);
+        }
+
+        return result;
+    } catch (error: any) {
+        return thunkAPI.rejectWithValue(error.response.data);
+    }
+});
+
 export const logout = createAsyncThunk('logout', async (__, thunkAPI) => {
     try {
         const response: Response = await request.Delete(`/admin/logout`, request.getToken() as string);

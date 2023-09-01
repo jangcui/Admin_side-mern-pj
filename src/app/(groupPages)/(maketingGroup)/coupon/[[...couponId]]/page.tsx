@@ -95,11 +95,7 @@ function AddCoupon() {
                     />
                     <p className="text-error">{formik.touched.discount && formik.errors.discount}</p>
                 </div>
-                <button
-                    type={'submit'}
-                    className="py-6 px-10 bg-primary rounded-2xl text-white mt-10"
-                    onClick={() => console.log(123)}
-                >
+                <button type={'submit'} className="py-6 px-10 bg-primary rounded-2xl text-white mt-10">
                     {couponId !== undefined ? 'Update' : 'Create'} Coupon
                 </button>
             </form>

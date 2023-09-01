@@ -1,17 +1,16 @@
 'use client';
 
-import { toast } from 'react-toastify';
 import ForwardTable from 'antd/lib/table/Table';
-import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { TiDelete } from 'react-icons/ti';
 import { BsArrowReturnLeft } from 'react-icons/bs';
+import { TiDelete } from 'react-icons/ti';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import ModalCustom from '~/components/ModalCustom';
-import { AppDispatch, RootState } from '~/reduxCtrl/store';
-import { deleteProduct, toggleProductToTrashBin } from '~/reduxCtrl/feature/productStage/productService';
-import { getCustomersTrash } from '~/reduxCtrl/feature/trashStage/trashServer';
 import { deleteUser, toggleCustomerToTrashBin } from '~/reduxCtrl/feature/customerStage/customerService';
+import { getCustomersTrash } from '~/reduxCtrl/feature/trashStage/trashServer';
+import { AppDispatch, RootState } from '~/reduxCtrl/store';
 
 interface DataType {
     key: React.Key;
@@ -89,7 +88,7 @@ function CustomerTrash() {
             }, 200);
         }
     };
-    console.log(customerTrash);
+
     const data1: DataType[] = [];
     for (let i = 0; i < customerTrash.length; i++) {
         const currentDate: Date = new Date();
@@ -97,7 +96,7 @@ function CustomerTrash() {
         const deadline = Math.floor((deleteDate.getTime() - currentDate.getTime()) / (1000 * 3600 * 24));
         data1.push({
             key: i + 1,
-            name: customerTrash[i].fist_name + customerTrash[i].last_name,
+            name: customerTrash[i].first_name + customerTrash[i].last_name,
             mobile: customerTrash[i].mobile,
             deadline: `After ${deadline} days`,
             address: customerTrash[i].address,

@@ -1,6 +1,6 @@
 export type AuthType = {
     _id: string;
-    fist_name: string;
+    first_name: string;
     last_name: string;
     email: string;
     mobile: string;
@@ -22,7 +22,7 @@ export type OptionType = {
 
 export type UserType = {
     id: string;
-    fist_name: string;
+    first_name: string;
     last_name: string;
     email: string;
     role: string;
@@ -75,7 +75,7 @@ export interface OrderType {
     orderItems: OrderItemType[];
     shipping: ShippingInfo;
     user: {
-        fist_name: string;
+        first_name: string;
         last_name: string;
         mobile: number;
         email: string;
@@ -85,7 +85,7 @@ export interface OrderType {
 export interface OrderListType {
     createdAt: Date;
     user: {
-        fist_name: string;
+        first_name: string;
         last_name: string;
     };
     dPrice: number;
@@ -133,7 +133,7 @@ export interface TrashProductType {
 
 export interface TrashCustomerType {
     _id: string;
-    fist_name: string;
+    first_name: string;
     last_name: string;
     mobile: number;
     deleteDate: string;

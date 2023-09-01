@@ -4,6 +4,7 @@ import ForwardTable from 'antd/lib/table/Table';
 import { useEffect, useState } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import ModalCustom from '~/components/ModalCustom';
 import { getAllUsers, toggleCustomerToTrashBin } from '~/reduxCtrl/feature/customerStage/customerService';
@@ -64,7 +65,10 @@ function Page() {
     const handleDelete = async (id: string) => {
         hideModal();
         await dispatch(toggleCustomerToTrashBin(id));
-        await dispatch(getAllUsers());
+        setTimeout(() => {
+            dispatch(getAllUsers());
+            toast.info('Added User to trash bin.!');
+        }, 200);
     };
 
     const data1: DataType[] = [];
@@ -73,7 +77,7 @@ function Page() {
             if (customerList[i].role !== 'admin') {
                 data1.push({
                     key: i + 1,
-                    name: ` ${customerList[i].fist_name} ${customerList[i].last_name} `,
+                    name: ` ${customerList[i].first_name} ${customerList[i].last_name} `,
                     email: customerList[i].email,
                     mobile: customerList[i].mobile,
                     blocked: `${customerList[i].isBlocked}`,

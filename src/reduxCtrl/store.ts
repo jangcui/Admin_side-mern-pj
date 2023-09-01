@@ -1,4 +1,4 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './feature/auth/authSlice';
 import incomeReducer from './feature/incomeStage/incomeSlice';
 import orderListReducer from './feature/orderStage/orderSlice';
@@ -14,6 +14,7 @@ import discountReducer from './feature/discountStage/discountLice';
 import couponReducer from './feature/couponStage/couponSlice';
 import trashReducer from './feature/trashStage/trashSlice';
 import enquiryReducer from './feature/enquiryStage/enquirySlice';
+import modalReducer from './feature/modal/modalSlice';
 
 export const store: any = configureStore({
     reducer: {
@@ -32,6 +33,7 @@ export const store: any = configureStore({
         couponData: couponReducer,
         trashBinData: trashReducer,
         enquiryData: enquiryReducer,
+        modalHandle: modalReducer,
     },
 });
 export type RootState = ReturnType<typeof store.getState>;

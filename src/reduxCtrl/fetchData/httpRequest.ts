@@ -1,7 +1,7 @@
 'use client';
 
-const baseUrl = process.env.BASE_URL;
-// const baseUrl = 'http://localhost:4000/api';
+// const baseUrl = process.env.BASE_URL;
+const baseUrl = 'http://localhost:4000/api';
 import { refreshToken } from '../feature/auth/authService';
 import { store } from '../store';
 

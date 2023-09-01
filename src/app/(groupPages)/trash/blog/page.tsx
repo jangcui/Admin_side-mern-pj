@@ -100,7 +100,6 @@ function BlogTrash() {
             }, 200);
         }
     };
-    console.log(blogTrash);
     const data1: DataType[] = [];
     for (let i = 0; i < blogTrash.length; i++) {
         const currentDate: Date = new Date();

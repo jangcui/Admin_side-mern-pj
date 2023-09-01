@@ -57,11 +57,10 @@ function OrderPage() {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
-    console.log(order);
 
     const data1: DataType[] = [];
     data1.push({
-        name: order?.user.fist_name + ' ' + order?.user.last_name,
+        name: order?.user.first_name + ' ' + order?.user.last_name,
         product: (
             <div className="flex flex-col gap-6">
                 {order?.orderItems.map((item, index) => (

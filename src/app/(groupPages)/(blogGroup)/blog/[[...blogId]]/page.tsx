@@ -171,7 +171,6 @@ function CreateBlog() {
                                     type="button"
                                     className="absolute top-1 right-1 z-10"
                                     onClick={() => {
-                                        console.log(index);
                                         setFiles((prev) => {
                                             const newFiles = [...prev];
                                             newFiles.splice(index, 1);

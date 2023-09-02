@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import * as request from '~/reduxCtrl/fetchData/httpRequest';
+import * as request from '~/api/httpRequest';
 
 export const getAllUsers = createAsyncThunk('admin/user/get-all', async (__, thunkAPI) => {
     try {

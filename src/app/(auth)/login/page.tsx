@@ -4,10 +4,10 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import InputCustom from '~/components/InputCustom';
-import { login } from 'src/reduxCtrl/feature/auth/authService';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '~/reduxCtrl/store';
 import { useRouter } from 'next/navigation';
+import { login } from '~/reduxCtrl/feature/auth/authService';
 
 const loginSchema = Yup.object().shape({
     email: Yup.string().email('Email should be valid').required('Email is required'),

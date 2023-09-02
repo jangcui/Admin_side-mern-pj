@@ -3,7 +3,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { AuthType } from '../type';
-import { checkCurrentAdmin, login, logout, refreshToken } from './authService';
+import { checkCurrentAdmin, login, logout } from './authService';
 
 export type InitialState = {
     isLoading: boolean;
@@ -90,26 +90,6 @@ export const auth = createSlice({
                 state.isSuccess = false;
                 state.message = action.payload.message;
                 toast.error(action.payload.message);
-            })
-            .addCase(refreshToken.pending, (state) => {
-                state.isLoading = true;
-            })
-            .addCase(refreshToken.fulfilled, (state, action: PayloadAction<any>) => {
-                if (action.payload) {
-                    state.isError = false;
-                    state.isLoading = false;
-                    state.isSuccess = true;
-                    const { token } = action.payload;
-                    localStorage.setItem('TOKEN', token);
-                }
-            })
-            .addCase(refreshToken.rejected, (state, action: PayloadAction<any>) => {
-                state.isError = true;
-                state.isSuccess = false;
-                state.isLoading = false;
-                state.isSuccess = false;
-                state.message = action.payload.message;
-                toast.info('Login session has expired, please log in again.');
             });
     },
 });

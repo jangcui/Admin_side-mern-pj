@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'next/navigation';
 import ForwardTable from 'antd/lib/table/Table';
 
 import { AppDispatch, RootState } from '~/reduxCtrl/store';
@@ -45,16 +44,13 @@ const column: any = [
     },
 ];
 
-function OrderPage() {
+function OrderPage({ params }: { params: { orderId: string } }) {
     const dispatch = useDispatch<AppDispatch>();
     const { order } = useSelector((state: RootState) => state.orderListData);
 
-    const pathname = useParams();
-    const orderId = pathname?.orderId;
-
     useEffect(() => {
-        if (orderId !== undefined) {
-            dispatch(getAOrder(orderId[0]));
+        if (params.orderId !== undefined) {
+            dispatch(getAOrder(params.orderId[0]));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);

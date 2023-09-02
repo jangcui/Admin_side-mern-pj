@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import * as request from '~/reduxCtrl/fetchData/httpRequest';
+import * as request from '~/api/httpRequest';
 import { CouponType } from '../type';
 
 export const getCoupon = createAsyncThunk('coupon/get', async (id: string, thunkAPI) => {

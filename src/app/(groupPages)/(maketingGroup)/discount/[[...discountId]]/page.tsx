@@ -3,7 +3,7 @@
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { useEffect } from 'react';
 import { AppDispatch, RootState } from '~/reduxCtrl/store';
@@ -18,17 +18,15 @@ const couponSchema = Yup.object().shape({
     percentage: Yup.number().positive().integer().required('Discount is required'),
 });
 
-function CreateDiscount() {
+function CreateDiscount({ params }: { params: { discountId: string } }) {
     const dispatch = useDispatch<AppDispatch>();
     const { isLoading, discount } = useSelector((state: RootState) => state.discountData);
 
     const navigate = useRouter();
-    const pathname = useParams();
-    const discountId = pathname?.discountId;
 
     useEffect(() => {
-        if (discountId !== undefined) {
-            dispatch(getDiscount(discountId[0]));
+        if (params.discountId !== undefined) {
+            dispatch(getDiscount(params.discountId[0]));
         } else {
             dispatch(resetDiscountState());
         }
@@ -44,8 +42,8 @@ function CreateDiscount() {
         },
         validationSchema: couponSchema,
         onSubmit: async (values: Omit<DiscountType, '_id'>) => {
-            if (discountId !== undefined) {
-                await dispatch(updateADiscount({ id: discountId[0], data: values }));
+            if (params.discountId !== undefined) {
+                await dispatch(updateADiscount({ id: params.discountId[0], data: values }));
                 navigate.push('/discount-list');
             } else {
                 await dispatch(createDiscount(values));
@@ -56,7 +54,7 @@ function CreateDiscount() {
 
     return (
         <div className="wrapper">
-            <h1 className="title">{discountId !== undefined ? 'Edit' : 'Create New'} discount</h1>
+            <h1 className="title">{params.discountId !== undefined ? 'Edit' : 'Create New'} discount</h1>
             <form className="form" action="" onSubmit={formik.handleSubmit}>
                 <div className="mb-10">
                     <h4 className="mb-2">Name:</h4>
@@ -94,7 +92,7 @@ function CreateDiscount() {
                     <p className="text-error">{formik.touched.percentage && formik.errors.percentage}</p>
                 </div>
                 <button className="py-6 px-10 bg-primary rounded-2xl text-white mt-10" type={'submit'}>
-                    {discountId !== undefined ? 'Update' : 'Create New'} Coupon
+                    {params.discountId !== undefined ? 'Update' : 'Create New'} Coupon
                 </button>
             </form>
         </div>

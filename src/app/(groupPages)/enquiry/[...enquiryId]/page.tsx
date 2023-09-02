@@ -2,35 +2,32 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { IoMdArrowBack } from 'react-icons/io';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { getAnEnquiry, updateStatusEnquiry } from '~/reduxCtrl/feature/enquiryStage/enquiryServer';
 import { resetEnquiryState } from '~/reduxCtrl/feature/enquiryStage/enquirySlice';
 import { AppDispatch, RootState } from '~/reduxCtrl/store';
 
-function Enquiry() {
+function Enquiry({ params }: { params: { enquiryId: string } }) {
     const dispatch = useDispatch<AppDispatch>();
     const { enquiry } = useSelector((state: RootState) => state.enquiryData);
 
     const navigate = useRouter();
-    //get pathname
-    const pathname = useParams();
-    const enquiryId = pathname?.enquiryId;
 
     useEffect(() => {
-        if (enquiryId) {
-            dispatch(getAnEnquiry(enquiryId[0]));
+        if (params.enquiryId) {
+            dispatch(getAnEnquiry(params.enquiryId[0]));
         } else {
             dispatch(resetEnquiryState());
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
     const setEnquiryStatus = async (value: string) => {
-        if (enquiryId) {
-            const data = { id: enquiryId[0], status: value };
+        if (params.enquiryId) {
+            const data = { id: params.enquiryId[0], status: value };
             await dispatch(updateStatusEnquiry(data));
             dispatch(resetEnquiryState());
-            await dispatch(getAnEnquiry(enquiryId[0]));
+            await dispatch(getAnEnquiry(params.enquiryId[0]));
         }
     };
     const handleBack = () => {

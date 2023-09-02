@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import DefaultLayout from './defaultLayout';
 import { useEffect, useState } from 'react';
 
-import { checkCurrentAdmin } from '~/reduxCtrl/feature/auth/authService';
 import Loading from '~/components/Loading';
 import { AppDispatch, RootState } from '~/reduxCtrl/store';
+import { checkCurrentAdmin } from '~/reduxCtrl/feature/auth/authService';
 
 function LayoutPage({ children }: { children: React.ReactNode }) {
     const { isLogin } = useSelector((state: RootState) => state.auth);

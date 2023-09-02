@@ -9,8 +9,8 @@ import { BsArrowReturnLeft } from 'react-icons/bs';
 
 import ModalCustom from '~/components/ModalCustom';
 import { AppDispatch, RootState } from '~/reduxCtrl/store';
-import { getBlogsTrash } from '~/reduxCtrl/feature/trashStage/trashServer';
 import { deleteBlog, toggleBlogToTrashBin } from '~/reduxCtrl/feature/blogState/blogService';
+// import { getBlogsTrash } from '~/reduxCtrl/feature/trashStage/trashServer';
 
 interface DataType {
     key: React.Key;
@@ -67,9 +67,12 @@ function BlogTrash() {
     const [openModalDelete, setOpenModalDelete] = useState<boolean>(false);
     const [openModalReturn, setOpenModalReturn] = useState<boolean>(false);
 
-    useEffect(() => {
-        dispatch(getBlogsTrash());
-    }, [dispatch]);
+    // const getData = async () => {
+    //     await dispatch(getBlogsTrash());
+    // };
+    // useEffect(() => {
+    //     getData();
+    // }, []);
 
     const showModalDelete = (value?: string) => {
         setOpenModalDelete(true);
@@ -86,7 +89,7 @@ function BlogTrash() {
     const handleDelete = async (id: string) => {
         setOpenModalDelete(false);
         await dispatch(deleteBlog(id));
-        await dispatch(getBlogsTrash());
+        // await dispatch(getBlogsTrash());
     };
 
     const handleRecovered = async (id?: string) => {
@@ -94,7 +97,7 @@ function BlogTrash() {
             setOpenModalReturn(false);
             await dispatch(toggleBlogToTrashBin(id));
             setTimeout(() => {
-                dispatch(getBlogsTrash());
+                // dispatch(getBlogsTrash());
                 toast.info('Recovered User!');
             }, 200);
         }

@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineClose, AiOutlineFileImage } from 'react-icons/ai';
 import * as Yup from 'yup';
 import Image from 'next/image';
-import { useParams } from 'next/navigation';
 
 import { AppDispatch, RootState } from '~/reduxCtrl/store';
 import InputCustom from '~/components/InputCustom';
@@ -41,7 +40,7 @@ const productSchema = Yup.object().shape({
     images: Yup.array().required('Images is required'),
 });
 
-function Product() {
+function Product({ params }: { params: { slug: string } }) {
     const dispatch = useDispatch<AppDispatch>();
 
     const brandState = useSelector((state: RootState) => state.brandData.brandList);
@@ -57,9 +56,6 @@ function Product() {
     const [files, setFiles] = useState<File[]>([]);
 
     const navigate = useRouter();
-    //get pathname
-    const pathname = useParams();
-    const slug = pathname?.slug;
 
     ///////////////////////////////////////
     useEffect(() => {
@@ -70,8 +66,8 @@ function Product() {
     }, [dispatch]);
 
     useEffect(() => {
-        if (slug !== undefined) {
-            dispatch(getAProduct(slug[0]));
+        if (params.slug !== undefined) {
+            dispatch(getAProduct(params.slug[0]));
         } else {
             setImgUrl([]);
             setImgConvert([]);
@@ -117,7 +113,7 @@ function Product() {
             price: product?.price ? product?.price : 0,
             quantity: product?.quantity ? product?.quantity : 0,
             category: product?.category ? product?.category : '',
-            color: product.color && slug !== undefined ? color : [''],
+            color: product.color && params.slug !== undefined ? color : [''],
             images: product.images ? product?.images : [],
         },
         validationSchema: productSchema,
@@ -130,7 +126,7 @@ function Product() {
             } else {
                 setFieldValue('images', imgUrl);
             }
-            if (slug !== undefined) {
+            if (params.slug !== undefined) {
                 const productUpdate = await dispatch(updateAProduct({ id: product._id || '', body: values }));
 
                 if (productUpdate) {
@@ -138,7 +134,7 @@ function Product() {
                     formik.resetForm();
                 }
             }
-            if (slug === undefined) {
+            if (params.slug === undefined) {
                 const result = await dispatch(createProduct(values));
                 if (result.meta.requestStatus === 'fulfilled') {
                     setColor([]);
@@ -155,7 +151,7 @@ function Product() {
 
     return (
         <div className="h-full mb-[50px]">
-            <h1 className="title">{slug !== undefined ? 'Edit' : 'Add'} Product</h1>
+            <h1 className="title">{params.slug !== undefined ? 'Edit' : 'Add'} Product</h1>
             {isError === true && isSuccess === false && message != '' ? (
                 <p className="text-error text-center text-2xl mt-2">{message}</p>
             ) : (
@@ -350,7 +346,7 @@ function Product() {
                         className="py-6 px-10 bg-primary rounded-2xl text-white"
                         type={'submit'}
                     >
-                        {slug !== undefined ? 'Update' : 'Add'} Product
+                        {params.slug !== undefined ? 'Update' : 'Add'} Product
                     </button>
                 </div>
             </form>

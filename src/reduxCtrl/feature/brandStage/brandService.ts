@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import * as request from '~/reduxCtrl/fetchData/httpRequest';
+import * as request from '~/api/httpRequest';
 import { OptionType } from '../type';
 
 export const getBrand = createAsyncThunk('brand/get', async (id: string, thunkAPI) => {

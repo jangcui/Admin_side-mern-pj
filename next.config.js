@@ -2,7 +2,7 @@
 const path = require('path');
 
 module.exports = {
-    reactStrictMode: true,
+    reactStrictMode: false,
     env: {
         BASE_URL: process.env.NEXT_PUBLIC_API_URL,
     },
@@ -20,5 +20,9 @@ module.exports = {
                 permanent: true,
             },
         ];
+    },
+    experimental: {
+        appDir: true,
+        serverActions: true,
     },
 };

@@ -2,7 +2,7 @@
 
 import './global.scss';
 import 'react-toastify/dist/ReactToastify.css';
-import ToastProvider from './toastNotify';
+import ToastProvider from '~/components/toastNotify';
 import ReduxProvider from '~/reduxCtrl/provider';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -12,9 +12,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <link rel="icon" href="/favicon.png" sizes="any" />
             </head>
             <body className="w-full h-full">
-                <ToastProvider>
-                    <ReduxProvider>{children}</ReduxProvider>
-                </ToastProvider>
+                <ReduxProvider>
+                    <ToastProvider>{children} </ToastProvider>
+                </ReduxProvider>
             </body>
         </html>
     );

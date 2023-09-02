@@ -1,3 +1,5 @@
+'use client';
+
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './feature/auth/authSlice';
 import incomeReducer from './feature/incomeStage/incomeSlice';

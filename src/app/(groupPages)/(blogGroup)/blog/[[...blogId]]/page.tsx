@@ -8,7 +8,6 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { AiOutlineClose, AiOutlineFileImage } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import images from 'public/asset/images';
 
@@ -19,6 +18,7 @@ import { resetBlogState } from '~/reduxCtrl/feature/blogState/blogSlice';
 import { uploadImages } from '~/reduxCtrl/feature/uploadImg/uploadImgService';
 import { createBlog, getBlog, updateABlog } from '~/reduxCtrl/feature/blogState/blogService';
 import { getAllBlogCates } from '~/reduxCtrl/feature/blogCateStage/blogCateService';
+import { useRouter } from 'next/navigation';
 
 const blogSchema = Yup.object().shape({
     title: Yup.string().required('Title is required'),
@@ -27,7 +27,7 @@ const blogSchema = Yup.object().shape({
     images: Yup.array().required('Images is required'),
 });
 
-function CreateBlog() {
+function CreateBlog({ params }: { params: { blogId: string } }) {
     const dispatch = useDispatch<AppDispatch>();
 
     const blogCateState = useSelector((state: RootState) => state.blogCateData.blogCateList);
@@ -38,9 +38,6 @@ function CreateBlog() {
     const [imgUrl, setImgUrl] = useState<ImgType[]>([]);
     const [files, setFiles] = useState<File[]>([]);
 
-    //get pathname
-    const pathname = useParams();
-    const blogId = pathname?.blogId;
     const navigate = useRouter();
 
     ////////////////////////////////////////////////
@@ -49,8 +46,8 @@ function CreateBlog() {
     }, [dispatch]);
 
     useEffect(() => {
-        if (blogId !== undefined) {
-            dispatch(getBlog(blogId[0]));
+        if (params.blogId !== undefined) {
+            dispatch(getBlog(params.blogId[0]));
         } else {
             setImgUrl([]);
             setImgConvert([]);
@@ -84,13 +81,13 @@ function CreateBlog() {
             } else {
                 formik.values.images = imgUrl;
             }
-            if (blogId !== undefined) {
-                const blogUpdate = await dispatch(updateABlog({ id: blogId[0], body: values }));
+            if (params.blogId !== undefined) {
+                const blogUpdate = await dispatch(updateABlog({ id: params.blogId[0], body: values }));
                 if (blogUpdate) {
                     navigate.push('/blog-list');
                 }
             }
-            if (blogId === undefined) {
+            if (params.blogId === undefined) {
                 const product = await dispatch(createBlog(values));
                 if (product) {
                     setFiles([]);
@@ -114,7 +111,7 @@ function CreateBlog() {
 
     return (
         <div className="h-full mb-[50px]">
-            <h1 className="title">{blogId !== undefined ? 'Edit' : 'Add'} Blog</h1>
+            <h1 className="title">{params.blogId !== undefined ? 'Edit' : 'Add'} Blog</h1>
             <form className="flex flex-col gap-10" action="" onSubmit={formik.handleSubmit}>
                 <div className="w-full">
                     <p className="my-3 font-semibold">Title:</p>
@@ -223,7 +220,7 @@ function CreateBlog() {
 
                 <div className="w-full text-center">
                     <button className="py-6 px-10 bg-primary rounded-2xl text-white" type={'submit'}>
-                        {blogId !== undefined ? 'Update' : 'Add'} Blog
+                        {params.blogId !== undefined ? 'Update' : 'Add'} Blog
                     </button>
                 </div>
             </form>

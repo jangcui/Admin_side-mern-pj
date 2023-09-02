@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import * as request from '~/reduxCtrl/fetchData/httpRequest';
+import * as request from '~/api/httpRequest';
 import { OptionType } from '../type';
 
 export const getAllBlogCates = createAsyncThunk('blogCategory/get-all', async (__, thunkAPI) => {

@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { AppDispatch, RootState } from '~/reduxCtrl/store';
 import { createColor, getColor, updateAColor } from '~/reduxCtrl/feature/colorStage/colorService';
@@ -15,18 +15,16 @@ const colorSchema = Yup.object().shape({
     title: Yup.string().required('Color is required'),
 });
 
-function Color() {
+function Color({ params }: { params: { colorId: string } }) {
     const dispatch = useDispatch<AppDispatch>();
     const colorState = useSelector((state: RootState) => state.colorData);
     const { isLoading, color } = colorState;
 
     const navigate = useRouter();
-    const pathname = useParams();
-    const colorId = pathname?.colorId;
 
     useEffect(() => {
-        if (colorId !== undefined) {
-            dispatch(getColor(colorId[0]));
+        if (params.colorId !== undefined) {
+            dispatch(getColor(params.colorId[0]));
         } else {
             dispatch(resetColorState());
         }
@@ -40,8 +38,8 @@ function Color() {
         },
         validationSchema: colorSchema,
         onSubmit: (values: Omit<OptionType, 'id' | '_id'>) => {
-            if (colorId !== undefined) {
-                dispatch(updateAColor({ id: colorId[0], title: formik.values.title }));
+            if (params.colorId !== undefined) {
+                dispatch(updateAColor({ id: params.colorId[0], title: formik.values.title }));
                 dispatch(resetColorState());
                 formik.resetForm();
             } else {
@@ -53,7 +51,7 @@ function Color() {
     });
     return (
         <div className="wrapper">
-            <h1 className="title"> {colorId !== undefined ? 'Edit' : 'Add'} Color</h1>
+            <h1 className="title"> {params.colorId !== undefined ? 'Edit' : 'Add'} Color</h1>
             <form className="form" action="" onSubmit={formik.handleSubmit}>
                 <h2 className={`mb-3 font-semibold`}>{formik.values.title}</h2>
                 <InputCustom
@@ -67,7 +65,7 @@ function Color() {
                 <p className="text-error">{formik.touched.title && formik.errors.title}</p>
 
                 <button className="py-6 px-10 bg-primary rounded-2xl text-white mt-10" type={'submit'}>
-                    {colorId !== undefined ? 'Update' : 'Add'} Color
+                    {params.colorId !== undefined ? 'Update' : 'Add'} Color
                 </button>
             </form>
         </div>

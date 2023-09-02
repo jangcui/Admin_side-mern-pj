@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { createCoupon, getCoupon, updateACoupon } from '~/reduxCtrl/feature/couponStage/couponServer';
 import { AppDispatch, RootState } from '~/reduxCtrl/store';
@@ -18,17 +18,15 @@ const couponSchema = Yup.object().shape({
     discount: Yup.number().positive().integer().required('Discount is required'),
 });
 
-function AddCoupon() {
+function AddCoupon({ params }: { params: { couponId: string } }) {
     const dispatch = useDispatch<AppDispatch>();
     const { isLoading, coupon } = useSelector((state: RootState) => state.couponData);
 
     const navigate = useRouter();
-    const pathname = useParams();
-    const couponId = pathname?.couponId;
 
     useEffect(() => {
-        if (couponId !== undefined) {
-            dispatch(getCoupon(couponId[0]));
+        if (params.couponId !== undefined) {
+            dispatch(getCoupon(params.couponId[0]));
         } else {
             dispatch(resetCouponState());
         }
@@ -43,8 +41,8 @@ function AddCoupon() {
         },
         validationSchema: couponSchema,
         onSubmit: async (values: Omit<CouponType, '_id'>) => {
-            if (couponId !== undefined) {
-                await dispatch(updateACoupon({ id: couponId[0], data: values }));
+            if (params.couponId !== undefined) {
+                await dispatch(updateACoupon({ id: params.couponId[0], data: values }));
                 navigate.push('/coupon-list');
             } else {
                 await dispatch(createCoupon(values));
@@ -55,7 +53,7 @@ function AddCoupon() {
 
     return (
         <div className="wrapper">
-            <h1 className="title">{couponId !== undefined ? 'Edit' : 'Create'} Coupon</h1>
+            <h1 className="title">{params.couponId !== undefined ? 'Edit' : 'Create'} Coupon</h1>
             <form className="form" action="" onSubmit={formik.handleSubmit}>
                 <div className="mb-10">
                     <h4 className="mb-2">Name:</h4>
@@ -96,7 +94,7 @@ function AddCoupon() {
                     <p className="text-error">{formik.touched.discount && formik.errors.discount}</p>
                 </div>
                 <button type={'submit'} className="py-6 px-10 bg-primary rounded-2xl text-white mt-10">
-                    {couponId !== undefined ? 'Update' : 'Create'} Coupon
+                    {params.couponId !== undefined ? 'Update' : 'Create'} Coupon
                 </button>
             </form>
         </div>

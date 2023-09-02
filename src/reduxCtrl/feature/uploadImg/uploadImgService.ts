@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import * as request from '~/reduxCtrl/fetchData/httpRequest';
+import * as request from '~/api/httpRequest';
 
 export const uploadImages = createAsyncThunk('image/upload', async (data: File[]) => {
     const formData: FormData = new FormData();

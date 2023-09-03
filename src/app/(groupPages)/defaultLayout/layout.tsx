@@ -192,7 +192,9 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
             <Layout className="bg-gray">
                 <Sider trigger={null} collapsible collapsed={collapsed} className="">
                     <div className="h-[64px] flex justify-center items-center bg-gray rounded">
-                        <h2 className="text-center font-bold text-3xl text-primary">Panel</h2>{' '}
+                        <h2 className="text-center font-bold text-3xl text-primary">
+                            {!collapsed && <span>Admin </span>} Panel
+                        </h2>{' '}
                         <ModalCustom
                             title={'Log Out'}
                             open={openModal}
@@ -205,7 +207,7 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
                         theme="dark"
                         className="menu bg-primary text-gray h-[calc(100%-64px)]"
                         mode="inline"
-                        defaultSelectedKeys={[pathName || '/dashboard']}
+                        defaultSelectedKeys={[pathName || '/']}
                         onClick={({ key }) => {
                             if (key === 'log_out') {
                                 setOpenModal(true);

@@ -13,7 +13,6 @@ function LayoutPage({ children }: { children: React.ReactNode }) {
     const { isLogin } = useSelector((state: RootState) => state.auth);
     const dispatch = useDispatch<AppDispatch>();
     const [isCheckingLogin, setIsCheckingLogin] = useState(true);
-
     useEffect(() => {
         dispatch(checkCurrentAdmin())
             .then(() => setIsCheckingLogin(false))

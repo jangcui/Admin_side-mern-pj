@@ -45,23 +45,24 @@ const request = async (path: string, method: string, data: any, token?: string) 
     return response;
 };
 
-// Hàm GET
+// GET
 export const get = async <Response>(path: string, token?: string): Promise<Response> => {
     return request(path, 'GET', null, token);
 };
 
-// Hàm POST
+// POST
 export const post = async <Response>(path: string, data: any, token?: string): Promise<Response> => {
     return request(path, 'POST', data, token);
 };
 
-// Hàm PUT
+// PUT
 export const put = async <Response>(path: string, data: any, token?: string): Promise<Response> => {
     return request(path, 'PUT', data, token);
 };
 
-// Hàm DELETE
+// DELETE
 export const Delete = async <Response>(path: string, token?: string): Promise<Response> => {
     return request(path, 'DELETE', null, token);
 };
+
 export default request;

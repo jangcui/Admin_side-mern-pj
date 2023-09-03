@@ -6,7 +6,7 @@ import { BiArrowBack } from 'react-icons/bi';
 const NotFound = () => {
     const navigate = useRouter();
     return (
-        <main className="w-full after:h-screen flex justify-center ">
+        <main className="w-full after:h-screen flex justify-center">
             <div className="mt-40">
                 <h1 className="text-7xl font-bold">Page Not Found</h1>
                 <p className="mt-12">

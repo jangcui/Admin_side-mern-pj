@@ -37,7 +37,6 @@ export const auth = createSlice({
                     state.isError = false;
                     state.isLoading = false;
                     state.isSuccess = true;
-
                     const { token, ...data } = action.payload;
                     state.admin = data;
                     state.isLogin = true;
@@ -57,13 +56,12 @@ export const auth = createSlice({
                 state.isLoading = true;
             })
             .addCase(checkCurrentAdmin.fulfilled, (state, action: PayloadAction<any>) => {
+                state.isError = false;
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.isLogin = true;
                 if (action.payload) {
-                    state.isError = false;
-                    state.isLoading = false;
-                    state.isSuccess = true;
-                    state.isLogin = true;
                     state.admin = action.payload.admin;
-                    // localStorage.setItem('TOKEN', action.payload.token);
                 }
             })
             .addCase(checkCurrentAdmin.rejected, (state) => {

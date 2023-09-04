@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 
-import { createCoupon, getCoupon, updateACoupon } from '~/reduxCtrl/feature/couponStage/couponServer';
+import { createCoupon, getCoupon, updateACoupon } from '~/reduxCtrl/feature/couponStage/couponService';
 import { AppDispatch, RootState } from '~/reduxCtrl/store';
 import { resetCouponState } from '~/reduxCtrl/feature/couponStage/couponSlice';
 import { CouponType } from '~/reduxCtrl/feature/type';

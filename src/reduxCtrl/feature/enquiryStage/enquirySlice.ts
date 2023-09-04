@@ -1,7 +1,7 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-import { getAnEnquiry, getAllEnquiries, updateStatusEnquiry, deleteEnquiry } from './enquiryServer';
+import { getAnEnquiry, getAllEnquiries, updateStatusEnquiry, deleteEnquiry } from './enquirySevice';
 import { EnquiryStageType } from '../type';
 
 type InitialState = {

@@ -228,7 +228,9 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
                                 <AiOutlineMenuFold className="icon" />
                             )}
                         </button>
-                        <h2 className="text-center font-semibold text-4xl hidden max-mobile:block">Well Come!!</h2>
+                        <h2 className="text-center font-semibold text-4xl hidden max-mobile:block">
+                            Welcome!! {admin && `${admin.first_name} ${admin.last_name}`}
+                        </h2>
                         <div className="flex pe-6 gap-x-10 items-center">
                             <a className="text-2xl text-center" href="https://xpj-commerce.vercel.app/" target="_blank">
                                 <p className="flex justify-center">

@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { IoMdArrowBack } from 'react-icons/io';
 import { useRouter } from 'next/navigation';
 
-import { getAnEnquiry, updateStatusEnquiry } from '~/reduxCtrl/feature/enquiryStage/enquiryServer';
+import { getAnEnquiry, updateStatusEnquiry } from '~/reduxCtrl/feature/enquiryStage/enquirySevice';
 import { resetEnquiryState } from '~/reduxCtrl/feature/enquiryStage/enquirySlice';
 import { AppDispatch, RootState } from '~/reduxCtrl/store';
 

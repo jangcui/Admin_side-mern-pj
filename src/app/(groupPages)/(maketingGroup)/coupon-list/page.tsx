@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 
 import ModalCustom from '~/components/ModalCustom';
 import { AppDispatch, RootState } from '~/reduxCtrl/store';
-import { deleteCoupon, getAllCoupons } from '~/reduxCtrl/feature/couponStage/couponServer';
+import { deleteCoupon, getAllCoupons } from '~/reduxCtrl/feature/couponStage/couponService';
 
 interface DataType {
     key: React.Key;

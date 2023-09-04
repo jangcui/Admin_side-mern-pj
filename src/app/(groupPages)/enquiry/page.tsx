@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 
 import { AppDispatch, RootState } from '~/reduxCtrl/store';
 import ModalCustom from '~/components/ModalCustom';
-import { deleteEnquiry, getAllEnquiries, updateStatusEnquiry } from '~/reduxCtrl/feature/enquiryStage/enquiryServer';
+import { deleteEnquiry, getAllEnquiries, updateStatusEnquiry } from '~/reduxCtrl/feature/enquiryStage/enquirySevice';
 
 interface DataType {
     key: React.Key;

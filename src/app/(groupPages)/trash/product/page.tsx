@@ -9,7 +9,7 @@ import { BsArrowReturnLeft } from 'react-icons/bs';
 
 import ModalCustom from '~/components/ModalCustom';
 import { AppDispatch, RootState } from '~/reduxCtrl/store';
-import { getProductTrash } from '~/reduxCtrl/feature/trashStage/trashServer';
+import { getProductTrash } from '~/reduxCtrl/feature/trashStage/trashService';
 import { deleteProduct, toggleProductToTrashBin } from '~/reduxCtrl/feature/productStage/productService';
 
 interface DataType {

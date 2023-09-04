@@ -1,7 +1,7 @@
 import { PayloadAction, createAction, createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { CouponType } from '../type';
-import { createCoupon, deleteCoupon, getAllCoupons, getCoupon, updateACoupon } from './couponServer';
+import { createCoupon, deleteCoupon, getAllCoupons, getCoupon, updateACoupon } from './couponService';
 
 type InitialState = {
     couponList: CouponType[];

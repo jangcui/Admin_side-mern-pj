@@ -1,5 +1,5 @@
 import { PayloadAction, createAction, createSlice } from '@reduxjs/toolkit';
-import { clearCustomersTrash, getBlogsTrash, getCustomersTrash, getProductTrash } from './trashServer';
+import { clearCustomersTrash, getBlogsTrash, getCustomersTrash, getProductTrash } from './trashService';
 import { TrashBlogType, TrashCustomerType, TrashProductType } from '../type';
 import { toast } from 'react-toastify';
 

@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 
 import ModalCustom from '~/components/ModalCustom';
 import { deleteUser, toggleCustomerToTrashBin } from '~/reduxCtrl/feature/customerStage/customerService';
-import { getCustomersTrash } from '~/reduxCtrl/feature/trashStage/trashServer';
+import { getCustomersTrash } from '~/reduxCtrl/feature/trashStage/trashService';
 import { AppDispatch, RootState } from '~/reduxCtrl/store';
 
 interface DataType {
